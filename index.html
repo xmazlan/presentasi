@@ -1,81 +1,362 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kumpulan Presentasi - Ahmad Mazlan</title>
+    <title>Pusat Presentasi | Ahmad Mazlan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            color-scheme: dark;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 15% 25%, rgba(59, 130, 246, 0.28), transparent 55%),
+                radial-gradient(circle at 85% 15%, rgba(14, 165, 233, 0.25), transparent 55%),
+                linear-gradient(180deg, #020617 0%, #0f172a 40%, #020617 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            margin: 0;
         }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .filter-chip {
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .filter-chip.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #bae6fd;
+            border-color: rgba(37, 99, 235, 0.45);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .presentation-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .presentation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.45);
+        }
+
+        .status-badge {
+            border: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800">
 
-    <main class="max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
+<body>
 
-        <!-- Header -->
-        <header class="text-center pb-8 mb-10">
-            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900">
-                Pusat Presentasi
-            </h1>
-            <p class="mt-3 text-lg text-slate-600">
-                Kumpulan materi dan laporan presentasi oleh Ahmad Mazlan.
-            </p>
-        </header>
+    <div class="relative overflow-hidden">
+        <main class="max-w-6xl mx-auto px-5 sm:px-10 py-16 lg:py-20 space-y-20">
 
-        <!-- Daftar Presentasi -->
-        <section id="daftar-presentasi">
-            <h2 class="text-xl font-semibold text-slate-800 mb-6 border-b pb-3">Daftar Materi</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                <!-- Kartu Presentasi 1 -->
-                <a href="proposal-penataan-kabel.html" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-200">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 p-2 rounded-full">
-                            <i data-lucide="presentation" class="h-6 w-6 text-blue-600"></i>
-                        </div>
-                        <h3 class="ml-4 text-xl font-semibold text-slate-800">Penataan Kabel FO</h3>
-                    </div>
-                    <p class="text-slate-600 mb-4">
-                        Studi tiru penataan infrastruktur telekomunikasi berdasarkan keberhasilan Kota Yogyakarta.
+            <!-- Hero -->
+            <section class="grid lg:grid-cols-[1.4fr,1fr] gap-10 items-center">
+                <div class="space-y-8">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 glass-panel border border-slate-700">
+                        <i data-lucide="sparkles" class="h-4 w-4 text-sky-300"></i>
+                        Knowledge Sharing Hub
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-100">
+                        Kumpulan Laporan, Riset, dan <span class="gradient-text">Materi Strategis</span>
+                    </h1>
+                    <p class="text-lg text-slate-300 leading-relaxed">
+                        Sebuah pusat untuk mengeksplorasi laporan perjalanan dinas, insight transformasi digital, dan roadmap proyek strategis. Setiap materi dirancang interaktif dan siap dibagikan melalui GitHub Pages untuk kolaborasi yang lebih luas.
                     </p>
-                    <div class="mt-auto text-sm text-blue-600 font-semibold flex items-center">
-                        <span>Lihat Presentasi</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="proposal-penataan-kabel.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 text-slate-900 font-semibold shadow-lg hover:scale-[1.03] transition-transform">
+                            <i data-lucide="presentation" class="h-5 w-5"></i>
+                            Buka Presentasi Terbaru
+                        </a>
+                        <button id="scrollCatalog" class="inline-flex items-center gap-2 px-5 py-3 rounded-full glass-panel border border-slate-700 text-slate-200 font-medium hover:border-sky-400 transition-colors">
+                            <i data-lucide="library" class="h-5 w-5 text-sky-300"></i>
+                            Lihat Katalog
+                        </button>
                     </div>
-                </a>
+                    <div class="glass-panel border border-slate-800 rounded-3xl px-6 py-6 grid sm:grid-cols-3 gap-6">
+                        <div>
+                            <p class="text-3xl font-bold text-sky-300">03</p>
+                            <p class="text-xs uppercase tracking-[0.35em] text-slate-400 mt-2">Topik Prioritas 2025</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-cyan-300">01</p>
+                            <p class="text-xs uppercase tracking-[0.35em] text-slate-400 mt-2">Anggota Kolaborasi</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-indigo-300">100%</p>
+                            <p class="text-xs uppercase tracking-[0.35em] text-slate-400 mt-2">Materi Bisa Diakses Publik</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="glass-panel border border-slate-800 rounded-3xl px-6 py-6 feature-card transition-transform">
+                        <div class="flex items-center justify-between text-slate-300">
+                            <p class="text-sm uppercase tracking-[0.35em]">Highlight Terbaru</p>
+                            <span class="status-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-slate-300">
+                                <i data-lucide="zap" class="h-4 w-4 text-sky-300"></i>
+                                Live
+                            </span>
+                        </div>
+                        <h2 class="text-2xl font-semibold text-slate-100 mt-4 leading-snug">
+                            Studi Tiru Penataan Infrastruktur Telekomunikasi di Yogyakarta
+                        </h2>
+                        <p class="text-sm text-slate-400 mt-4 leading-relaxed">
+                            Presentasi bergaya pitch deck yang merangkum pembelajaran kunci dari perjalanan dinas ke Yogyakarta, lengkap dengan roadmap implementasi 180 hari untuk Pekanbaru.
+                        </p>
+                        <div class="mt-6 flex items-center justify-between text-xs text-slate-400">
+                            <span class="inline-flex items-center gap-2">
+                                <i data-lucide="clock" class="h-4 w-4 text-sky-300"></i>
+                                Durasi baca 12 menit
+                            </span>
+                            <span>Diupdate: Okt 2025</span>
+                        </div>
+                    </div>
+                    <div class="glass-panel border border-slate-800 rounded-3xl px-6 py-6 feature-card transition-transform">
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i data-lucide="compass" class="h-5 w-5 text-sky-300"></i>
+                            <p class="text-sm uppercase tracking-[0.35em]">Tujuan Platform</p>
+                        </div>
+                        <ul class="mt-4 space-y-3 text-sm text-slate-300 leading-relaxed">
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="h-4 w-4 text-emerald-300 mt-0.5"></i>
+                                Menyediakan materi siap presentasi untuk pimpinan dan stakeholder.
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="h-4 w-4 text-emerald-300 mt-0.5"></i>
+                                Menyimpan dokumentasi perjalanan dinas dan insight riset lapangan.
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="h-4 w-4 text-emerald-300 mt-0.5"></i>
+                                Mempercepat kolaborasi lintas dinas melalui informasi yang terstruktur.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-                <!-- Placeholder untuk Presentasi Berikutnya -->
-                <div class="block bg-white p-6 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center">
-                    <div class="text-center text-slate-500">
-                        <i data-lucide="plus-circle" class="h-8 w-8 mx-auto mb-2"></i>
-                        <h3 class="text-xl font-semibold">Presentasi Berikutnya</h3>
-                        <p>Slot tersedia untuk laporan atau materi baru.</p>
+            <!-- Katalog Presentasi -->
+            <section id="catalog" class="space-y-8">
+                <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+                    <div class="space-y-3">
+                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 glass-panel border border-slate-700">
+                            <i data-lucide="library" class="h-4 w-4 text-sky-300"></i>
+                            Katalog Materi
+                        </span>
+                        <div>
+                            <h2 class="text-3xl font-bold text-slate-100">Semua Presentasi & Draft</h2>
+                            <p class="text-slate-400 text-sm max-w-2xl mt-2">
+                                Gunakan filter untuk menampilkan presentasi yang sudah siap tayang, sedang disusun, atau rencana mendatang.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="filter-chip px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.3em] text-slate-300 active" data-filter="all">
+                            Semua
+                        </button>
+                        <button class="filter-chip px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.3em] text-slate-300" data-filter="published">
+                            Sudah Rilis
+                        </button>
+                        <button class="filter-chip px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.3em] text-slate-300" data-filter="draft">
+                            Sedang Disusun
+                        </button>
+                        <button class="filter-chip px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.3em] text-slate-300" data-filter="upcoming">
+                            Rencana 2026
+                        </button>
                     </div>
                 </div>
 
-            </div>
-        </section>
-        
-        <!-- Footer -->
-        <footer class="text-center mt-12 pt-8 border-t border-slate-200">
-            <p class="text-sm text-slate-500 mt-2">
-                Ahmad Mazlan | Diskominfo Pekanbaru | © 2025
-            </p>
-        </footer>
+                <div class="grid lg:grid-cols-3 sm:grid-cols-2 gap-6">
+                    <a href="proposal-penataan-kabel.html" class="presentation-card glass-panel border border-slate-800 rounded-3xl px-6 py-6 flex flex-col gap-5" data-status="published">
+                        <div class="flex items-center justify-between">
+                            <span class="status-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-emerald-200">
+                                <i data-lucide="badge-check" class="h-4 w-4 text-emerald-300"></i>
+                                Siap Dilihat
+                            </span>
+                            <i data-lucide="arrow-up-right" class="h-5 w-5 text-sky-300"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-semibold text-slate-100 leading-snug">Laporan: Penataan Kabel Yogyakarta</h3>
+                            <p class="text-sm text-slate-400 leading-relaxed">
+                                Studi kasus interaktif mengenai proyek penataan kabel udara menjadi ducting bawah tanah di berbagai lokasi strategis Yogyakarta.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs text-slate-400">
+                            <span class="inline-flex items-center gap-1.5">
+                                <i data-lucide="map-pin" class="h-4 w-4 text-sky-300"></i>
+                                Studi Kasus: Yogyakarta
+                            </span>
+                            <span class="inline-flex items-center gap-1.5">
+                                <i data-lucide="calendar" class="h-4 w-4 text-sky-300"></i>
+                                Okt 2025
+                            </span>
+                        </div>
+                    </a>
 
-    </main>
+                    <div class="presentation-card glass-panel border border-slate-800 rounded-3xl px-6 py-6 flex flex-col gap-5" data-status="draft">
+                        <div class="flex items-center justify-between">
+                            <span class="status-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-amber-200">
+                                <i data-lucide="loader" class="h-4 w-4 text-amber-300 animate-spin"></i>
+                                Draft
+                            </span>
+                            <i data-lucide="sparkle" class="h-5 w-5 text-slate-500"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-semibold text-slate-100 leading-snug">Blueprint Data Center Terpadu</h3>
+                            <p class="text-sm text-slate-400 leading-relaxed">
+                                Menyusun standar fasilitas, kebutuhan daya, dan integrasi sistem untuk pusat data pemerintah yang efisien.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs text-slate-400">
+                            <span class="inline-flex items-center gap-1.5">
+                                <i data-lucide="calendar" class="h-4 w-4 text-sky-300"></i>
+                                Target Rilis: Nov 2025
+                            </span>
+                            <span class="inline-flex items-center gap-1.5">
+                                <i data-lucide="users" class="h-4 w-4 text-sky-300"></i>
+                                Kolaborasi Multi-OPD
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="presentation-card glass-panel border border-slate-800 rounded-3xl px-6 py-6 flex flex-col gap-5" data-status="upcoming">
+                        <div class="flex items-center justify-between">
+                            <span class="status-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-slate-300">
+                                <i data-lucide="calendar-clock" class="h-4 w-4 text-sky-300"></i>
+                                Dijadwalkan
+                            </span>
+                            <i data-lucide="more-horizontal" class="h-5 w-5 text-slate-500"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <h3 class="text-xl font-semibold text-slate-100 leading-snug">Kajian Smart Mobility 2026</h3>
+                            <p class="text-sm text-slate-400 leading-relaxed">
+                                Studi kasus integrasi transportasi publik dengan sensor dan data real-time untuk kota cerdas.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs text-slate-400">
+                            <span class="inline-flex items-center gap-1.5">
+                                <i data-lucide="compass" class="h-4 w-4 text-sky-300"></i>
+                                Benchmark: Kota Maju
+                            </span>
+                            <span class="inline-flex items-center gap-1.5">
+                                <i data-lucide="calendar" class="h-4 w-4 text-sky-300"></i>
+                                Q2 2026
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline -->
+            <section class="space-y-8">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 class="text-3xl font-bold text-slate-100">Timeline Produksi Materi</h2>
+                        <p class="text-slate-400 text-sm max-w-xl mt-2">
+                            Menunjukkan ritme rilis sehingga tim dapat menyesuaikan agenda rapat pimpinan dan kebutuhan komunikasi publik.
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.35em] text-slate-300 glass-panel border border-slate-700">
+                        <i data-lucide="calendar-range" class="h-4 w-4 text-sky-300"></i>
+                        Update: Oktober 2025
+                    </span>
+                </div>
+
+                <div class="glass-panel border border-slate-800 rounded-3xl px-6 py-6">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="flex gap-3">
+                            <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-sky-500/30 to-indigo-500/30 border border-slate-700 flex items-center justify-center">
+                                <i data-lucide="radio" class="h-6 w-6 text-sky-300"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Oktober 2025</p>
+                                <h3 class="text-lg font-semibold text-slate-100">Peluncuran Proposal Penataan Kabel</h3>
+                                <p class="text-sm text-slate-400 leading-relaxed">Materi sudah tayang dan siap dipresentasikan pada rapat pimpinan dan forum operator.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-sky-500/30 to-indigo-500/30 border border-slate-700 flex items-center justify-center">
+                                <i data-lucide="pen-square" class="h-6 w-6 text-sky-300"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs uppercase tracking-[0.35em] text-slate-400">November 2025</p>
+                                <h3 class="text-lg font-semibold text-slate-100">Draft Blueprint Data Center</h3>
+                                <p class="text-sm text-slate-400 leading-relaxed">Proses penyusunan konten dan visualisasi untuk workshop lintas dinas.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="h-12 w-12 rounded-2xl bg-gradient-to-br from-sky-500/30 to-indigo-500/30 border border-slate-700 flex items-center justify-center">
+                                <i data-lucide="flag" class="h-6 w-6 text-sky-300"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Q2 2026</p>
+                                <h3 class="text-lg font-semibold text-slate-100">Rilis Smart Mobility Report</h3>
+                                <p class="text-sm text-slate-400 leading-relaxed">Direncanakan untuk mendukung perencanaan anggaran transportasi cerdas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="py-10 text-center text-slate-500 text-sm">
+            © 2025 Ahmad Mazlan. Dibangun untuk berbagi insight & inspirasi kolaborasi.
+        </footer>
+    </div>
 
     <script>
         lucide.createIcons();
+
+        // Scroll to catalog
+        const scrollCatalogBtn = document.getElementById('scrollCatalog');
+        const catalogSection = document.getElementById('catalog');
+        if (scrollCatalogBtn && catalogSection) {
+            scrollCatalogBtn.addEventListener('click', () => {
+                catalogSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Filter interaction
+        const filterButtons = document.querySelectorAll('.filter-chip');
+        const presentationCards = document.querySelectorAll('.presentation-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+
+                filterButtons.forEach(btn => btn.classList.toggle('active', btn === button));
+
+                presentationCards.forEach(card => {
+                    const status = card.dataset.status;
+                    const showCard = filter === 'all' || status === filter;
+                    card.classList.toggle('hidden', !showCard);
+                });
+            });
+        });
     </script>
-
 </body>
-</html>
 
+</html>

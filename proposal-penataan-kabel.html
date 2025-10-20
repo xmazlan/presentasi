@@ -1,346 +1,416 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposal Penataan Kabel FO Pekanbaru - Studi Kasus Yogyakarta</title>
+    <title>Laporan Penataan Kabel Yogyakarta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        :root {
+            color-scheme: dark;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
+            background: radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.25), transparent 45%),
+                radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.3), transparent 55%),
+                linear-gradient(180deg, #020617 0%, #0f172a 45%, #020617 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            margin: 0;
         }
-        .step-circle {
-            position: absolute;
-            top: 5px;
-            left: -35px;
-            width: 28px; /* Slightly larger */
-            height: 28px; /* Slightly larger */
+
+        section {
+            scroll-snap-align: start;
         }
-        .section-padding {
-            padding-top: 80px; /* Increased padding for better scroll spy accuracy */
-            margin-top: -80px; /* Counteract padding-top for fixed header */
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
         }
-        .nav-item.active {
-            @apply text-blue-600 font-bold bg-blue-50;
+
+        .nav-pill {
+            transition: transform 0.3s ease, background 0.3s ease;
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+        .nav-pill:hover {
+            transform: translateX(6px);
         }
-        .fade-in.appear {
-            opacity: 1;
-            transform: translateY(0);
+
+        .nav-pill.active {
+            background: rgba(59, 130, 246, 0.18);
+            border-color: rgba(96, 165, 250, 0.35);
+            color: #bfdbfe;
         }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .progress-bar {
+            transition: width 0.4s ease;
+        }
+
+        .badge {
+            border: 1px solid rgba(148, 163, 184, 0.45);
+        }
+
+        .tab-button {
+            border: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        .tab-button.active {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(96, 165, 250, 0.45);
+            color: #bfdbfe;
+        }
+
+        .timeline-dot.active {
+            background: #60a5fa;
+            box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.25);
+        }
+
+        @media (max-width: 1024px) {
+            html {
+                scroll-snap-type: y mandatory;
+            }
+        }
+
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
 
-    <!-- Fixed Navigation Sidebar --><nav class="fixed left-0 top-0 h-full w-60 bg-white shadow-lg p-6 border-r border-slate-200 hidden lg:block">
-        <div class="mb-8">
-            <h3 class="text-xl font-bold text-slate-900">Navigasi</h3>
+<body class="relative">
+
+    <!-- Floating progress tracker -->
+    <div class="fixed top-4 right-6 z-40 hidden sm:flex items-center gap-3 glass-panel px-4 py-3 rounded-2xl border border-slate-700 shadow-lg">
+        <div class="flex flex-col">
+            <span class="text-xs uppercase tracking-wider text-slate-400">Progres Laporan</span>
+            <div class="w-48 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                <div id="progressBar" class="progress-bar h-full bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 rounded-full" style="width: 12%;"></div>
+            </div>
         </div>
-        <ul>
-            <li class="mb-3">
-                <a href="#masalah" class="nav-item block px-4 py-2 rounded-md text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200 flex items-center">
-                    <i data-lucide="alert-triangle" class="h-4 w-4 mr-2"></i> Masalah Kita
-                </a>
-            </li>
-            <li class="mb-3">
-                <a href="#solusi-yogya" class="nav-item block px-4 py-2 rounded-md text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200 flex items-center">
-                    <i data-lucide="lightbulb" class="h-4 w-4 mr-2"></i> Solusi Yogyakarta
-                </a>
-            </li>
-            <li class="mb-3">
-                <a href="#langkah-pekanbaru" class="nav-item block px-4 py-2 rounded-md text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-200 flex items-center">
-                    <i data-lucide="trending-up" class="h-4 w-4 mr-2"></i> Langkah untuk Pekanbaru
-                </a>
-            </li>
-            <li class="mt-6 border-t pt-6 border-slate-200">
-                <a href="index.html" class="nav-item block px-4 py-2 rounded-md text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors duration-200 flex items-center">
-                    <i data-lucide="arrow-left" class="h-4 w-4 mr-2"></i> Kembali ke Indeks
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <span id="progressLabel" class="text-sm font-semibold text-slate-200">Hal 1 / 6</span>
+    </div>
 
-    <main class="max-w-4xl lg:ml-60 mx-auto p-4 sm:p-6 md:p-8">
-
-        <!-- Header Utama --><header class="text-center border-b border-slate-200 pb-8 mb-10 fade-in">
-            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">
-                Studi Tiru Penataan Infrastruktur Telekomunikasi Pasif
-            </h1>
-            <p class="mt-3 text-lg text-slate-600">
-                Belajar dari Keberhasilan <span class="font-bold text-blue-600">Kota Yogyakarta</span> untuk Mewujudkan Pekanbaru yang Lebih Tertata
-            </p>
-            <p class="mt-4 text-sm text-slate-500">Disajikan dari hasil Kunjungan Kerja, September 2025</p>
-        </header>
-
-        <!-- Tombol Kembali untuk Mobile/Tablet --><div class="lg:hidden mb-8 fade-in">
-            <a href="index.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors duration-200">
-                <i data-lucide="arrow-left" class="h-5 w-5 mr-2"></i> Kembali ke Indeks
+    <!-- Side navigation -->
+    <nav class="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col gap-3 z-40">
+        <a href="index.html" class="glass-panel border border-slate-700 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:border-sky-400 transition-colors flex items-center gap-2">
+            <i data-lucide="arrow-left" class="h-4 w-4"></i>
+            <span class="text-sm font-medium">Kembali</span>
+        </a>
+        <div class="flex flex-col gap-3 mt-4">
+            <a href="#pembuka" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="pembuka">
+                <i data-lucide="sparkles" class="h-4 w-4"></i>
+                Pembuka
+            </a>
+            <a href="#situasi" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="situasi">
+                <i data-lucide="alert-triangle" class="h-4 w-4"></i>
+                Latar Belakang
+            </a>
+            <a href="#proyek" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="proyek">
+                <i data-lucide="server" class="h-4 w-4"></i>
+                Detail Proyek
+            </a>
+            <a href="#lokasi" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="lokasi">
+                <i data-lucide="map" class="h-4 w-4"></i>
+                Lokasi Kunci
+            </a>
+            <a href="#pembelajaran" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="pembelajaran">
+                <i data-lucide="lightbulb" class="h-4 w-4"></i>
+                Pembelajaran
+            </a>
+            <a href="#penutup" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="penutup">
+                <i data-lucide="flag" class="h-4 w-4"></i>
+                Penutup
             </a>
         </div>
+    </nav>
 
+    <!-- Mobile nav -->
+    <div class="lg:hidden fixed bottom-4 inset-x-4 z-40 glass-panel border border-slate-800 rounded-2xl px-4 py-3 flex items-center justify-between shadow-xl">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300">
+            <i data-lucide="home" class="h-5 w-5"></i>
+            <span class="text-sm font-medium">Indeks</span>
+        </a>
+        <div class="flex items-center gap-3 text-xs text-slate-400">
+            <span id="mobileProgressLabel">Hal 1 / 6</span>
+            <i data-lucide="chevron-right" class="h-4 w-4"></i>
+        </div>
+    </div>
 
-        <!-- Bagian 1: Masalah Saat Ini --><section id="masalah" class="mb-16 section-padding">
-            <div class="bg-white p-6 rounded-lg shadow-lg border border-slate-200 fade-in">
-                <div class="flex items-center mb-4">
-                    <div class="bg-red-100 p-3 rounded-full">
-                        <i data-lucide="triangle-alert" class="h-7 w-7 text-red-600"></i>
+    <main class="relative max-w-6xl mx-auto px-5 sm:px-10">
+
+        <!-- Slide 1: Pembuka -->
+        <section id="pembuka" class="min-h-screen py-20 flex flex-col justify-center gap-16">
+            <div class="glass-panel border border-slate-800 rounded-3xl shadow-2xl px-8 sm:px-12 py-10 sm:py-16">
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="flex-1 space-y-6">
+                        <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                            <i data-lucide="award" class="h-4 w-4 text-sky-300"></i>
+                            Studi Kasus: Transformasi Infrastruktur Digital
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                            Merajut Estetika Kota: Laporan Proyek <span class="gradient-text">Penataan Kabel Yogyakarta</span>
+                        </h1>
+                        <p class="text-lg text-slate-300 leading-relaxed">
+                            Laporan ini merangkum observasi dan data dari proyek penataan kabel udara menjadi jaringan bawah tanah (ducting) di Kota Yogyakarta. Sebuah inisiatif strategis untuk meningkatkan estetika, keamanan, dan keandalan layanan digital.
+                        </p>
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <div class="glass-panel border border-slate-800 rounded-2xl px-4 py-5 text-center">
+                                <p class="text-3xl font-extrabold text-cyan-300">Multi-Tahun</p>
+                                <p class="text-xs uppercase tracking-widest text-slate-400 mt-1">Jangka Waktu Proyek</p>
+                            </div>
+                            <div class="glass-panel border border-slate-800 rounded-2xl px-4 py-5 text-center">
+                                <p class="text-3xl font-extrabold text-indigo-300">3+ Pihak</p>
+                                <p class="text-xs uppercase tracking-widest text-slate-400 mt-1">Kolaborasi Inti</p>
+                            </div>
+                        </div>
                     </div>
-                    <h2 class="ml-4 text-2xl font-bold text-slate-800">Masalah Kita Saat Ini: Hutan Kabel di Langit Pekanbaru</h2>
+                    <div class="flex-1 space-y-6">
+                        <div class="glass-panel border border-slate-800 rounded-3xl px-6 py-6">
+                            <h2 class="text-xl font-semibold text-sky-200 flex items-center gap-2">
+                                <i data-lucide="radar" class="h-5 w-5"></i>
+                                Tujuan Utama Proyek
+                            </h2>
+                            <ul class="mt-4 space-y-3 text-slate-300 text-sm leading-normal">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="check-circle-2" class="h-5 w-5 text-sky-400 mt-0.5"></i>
+                                    Mengurangi polusi visual dari kabel udara yang semrawut (kesemrawutan kabel).
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="check-circle-2" class="h-5 w-5 text-sky-400 mt-0.5"></i>
+                                    Meningkatkan keamanan publik dari risiko kabel putus atau menjuntai.
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="check-circle-2" class="h-5 w-5 text-sky-400 mt-0.5"></i>
+                                    Menciptakan infrastruktur yang lebih andal dan mudah dikelola untuk masa depan.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <p class="mt-4 text-lg text-slate-700 leading-relaxed">
-                    Pemandangan **kabel fiber optik (FO) yang semrawut** di udara telah menjadi tantangan serius bagi estetika kota Pekanbaru. Lebih dari sekadar masalah visual, kondisi ini juga:
-                </p>
-                <ul class="mt-4 space-y-3 text-slate-600">
-                    <li class="flex items-start">
-                        <i data-lucide="x-circle" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0"></i>
-                        Berpotensi **membahayakan keselamatan** warga dari risiko korsleting, kebakaran, atau kecelakaan.
-                    </li>
-                    <li class="flex items-start">
-                        <i data-lucide="x-circle" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0"></i>
-                        **Merusak citra kota** yang ingin bertransformasi menjadi <span class="font-semibold text-blue-600">Smart City</span> yang modern dan teratur.
-                    </li>
-                    <li class="flex items-start">
-                        <i data-lucide="x-circle" class="h-5 w-5 text-red-500 mr-2 mt-1 flex-shrink-0"></i>
-                        Menciptakan **inefisiensi dan duplikasi infrastruktur** karena setiap operator membangun jaringannya sendiri.
-                    </li>
-                </ul>
-                <p class="mt-6 text-lg text-slate-700 leading-relaxed">
-                    Diperlukan sebuah solusi yang **komprehensif, berkelanjutan, dan didukung regulasi** yang kuat untuk menata infrastruktur ini.
-                </p>
+            </div>
+            <div class="flex flex-col items-center text-slate-500 text-sm gap-2">
+                <i data-lucide="chevrons-down" class="h-5 w-5 animate-bounce"></i>
+                Gulir untuk melanjutkan
             </div>
         </section>
 
-        <!-- Bagian 2: Solusi dari Yogyakarta --><section id="solusi-yogya" class="mb-16 section-padding">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-10 fade-in">
-                Bagaimana Yogyakarta Menyelesaikan Masalah Ini?
-            </h2>
-            <p class="text-center text-lg text-slate-700 mb-10 fade-in">
-                Yogyakarta berhasil menata infrastruktur telekomunikasi dengan menerapkan pendekatan terpadu yang berfokus pada **infrastruktur pasif bersama** (shared passive infrastructure).
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Kartu 1: Regulasi --><div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-slate-200 fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-blue-100 p-3 rounded-full">
-                            <i data-lucide="gavel" class="h-7 w-7 text-blue-600"></i>
-                        </div>
-                        <h3 class="ml-4 text-xl font-bold text-slate-800">1. Payung Hukum yang Kuat</h3>
+        <!-- Slide 2: Latar Belakang -->
+        <section id="situasi" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="flex flex-col lg:flex-row gap-10 items-center">
+                    <div class="lg:w-5/12 space-y-5">
+                        <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                            <i data-lucide="alert-octagon" class="h-4 w-4 text-sky-300"></i>
+                            Konteks Masalah
+                        </span>
+                        <h2 class="text-4xl font-bold leading-tight text-slate-100">
+                            Problem Klasik Kota Berkembang: "Hutan Kabel" di Ruang Publik
+                        </h2>
+                        <p class="text-lg text-slate-300 leading-relaxed">
+                            Seperti banyak kota lain, Yogyakarta menghadapi tantangan kabel fiber optik dan listrik yang dipasang di udara. Hal ini tidak hanya mengganggu pemandangan kota tetapi juga membawa risiko nyata bagi warga dan pariwisata.
+                        </p>
                     </div>
-                    <p class="text-slate-700 leading-relaxed">
-                        Kota Yogyakarta memiliki **Peraturan Walikota (Perwako)** yang secara spesifik mengatur Penyelenggaraan Infrastruktur Pasif Telekomunikasi. Regulasi ini menjadi "kitab suci" yang jelas, memberikan kekuatan hukum untuk:
-                    </p>
-                    <ul class="mt-3 space-y-2 text-slate-600 list-disc list-inside">
-                        <li>Mengatur izin pemasangan.</li>
-                        <li>Menentukan lokasi dan spesifikasi teknis.</li>
-                        <li>Dasar penindakan bagi pelanggar.</li>
-                    </ul>
-                </div>
-                <!-- Kartu 2: Ducting --><div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-slate-200 fade-in">
-                    <div class="flex items-center mb-4">
-                         <div class="bg-green-100 p-3 rounded-full">
-                            <i data-lucide="arrow-down-to-line" class="h-7 w-7 text-green-600"></i>
+                    <div class="lg:flex-1 space-y-8">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="glass-panel border border-slate-800 rounded-2xl px-5 py-6">
+                                <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Dampak Utama</p>
+                                <h3 class="text-xl font-semibold text-slate-100 mt-2">Risiko Keamanan</h3>
+                                <p class="text-sm text-slate-400 leading-relaxed mt-3">
+                                    Kabel yang menjuntai rendah atau putus akibat cuaca/kendaraan dapat membahayakan pejalan kaki dan pengendara.
+                                </p>
+                            </div>
+                            <div class="glass-panel border border-slate-800 rounded-2xl px-5 py-6">
+                                <p class="text-xs uppercase tracking-[0.35em] text-slate-400">Dampak Utama</p>
+                                <h3 class="text-xl font-semibold text-slate-100 mt-2">Degradasi Estetika</h3>
+                                <p class="text-sm text-slate-400 leading-relaxed mt-3">
+                                    Pemandangan di kawasan ikonik seperti Tugu dan Malioboro terganggu, mengurangi daya tarik visual bagi wisatawan.
+                                </p>
+                            </div>
                         </div>
-                        <h3 class="ml-4 text-xl font-bold text-slate-800">2. Implementasi Ducting Bersama</h3>
                     </div>
-                    <p class="text-slate-700 leading-relaxed">
-                        Ini adalah kunci utamanya. Semua kabel FO di area strategis wajib dipindahkan dari udara ke dalam **saluran bawah tanah (ducting)** yang sudah disiapkan. Manfaatnya:
-                    </p>
-                    <ul class="mt-3 space-y-2 text-slate-600 list-disc list-inside">
-                        <li>**Menghilangkan "hutan kabel"** di udara.</li>
-                        <li>Meningkatkan **estetika kota** secara drastis.</li>
-                        <li>Melindungi kabel dari cuaca dan kerusakan eksternal.</li>
-                    </ul>
-                </div>
-                <!-- Kartu 3: Pengelola --><div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-slate-200 fade-in">
-                    <div class="flex items-center mb-4">
-                         <div class="bg-yellow-100 p-3 rounded-full">
-                            <i data-lucide="building-2" class="h-7 w-7 text-yellow-600"></i>
-                        </div>
-                        <h3 class="ml-4 text-xl font-bold text-slate-800">3. Satu Pintu Pengelola</h3>
-                    </div>
-                    <p class="text-slate-700 leading-relaxed">
-                        Pengelolaan infrastruktur pasif ini tidak dilakukan secara parsial. Ada **satu unit pengelola khusus** (bisa UPTD atau BUMD) yang bertanggung jawab penuh atas:
-                    </p>
-                    <ul class="mt-3 space-y-2 text-slate-600 list-disc list-inside">
-                        <li>Pembangunan dan pemeliharaan *ducting*.</li>
-                        <li>Pengaturan sewa slot kepada operator.</li>
-                        <li>Memastikan standarisasi dan kemudahan pengawasan.</li>
-                    </ul>
-                </div>
-                <!-- Kartu 4: Zonasi --><div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-slate-200 fade-in">
-                    <div class="flex items-center mb-4">
-                         <div class="bg-purple-100 p-3 rounded-full">
-                            <i data-lucide="map" class="h-7 w-7 text-purple-600"></i>
-                        </div>
-                        <h3 class="ml-4 text-xl font-bold text-slate-800">4. Sistem Zonasi yang Jelas</h3>
-                    </div>
-                    <p class="text-slate-700 leading-relaxed">
-                        Penerapan aturan tidak dipukul rata di semua wilayah, melainkan dibagi berdasarkan zonasi:
-                    </p>
-                    <ul class="mt-3 space-y-2 text-slate-600 list-disc list-inside">
-                        <li>**Zona Wajib *Underground*:** Pusat kota, cagar budaya, jalan protokol utama.</li>
-                        <li>**Zona Tiang Bersama:** Area permukiman atau pinggir kota, dengan tiang yang diatur dan dipakai bersama.</li>
-                    </ul>
-                </div>
-                <!-- Kartu 5: PAD --><div class="bg-white p-6 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300 border border-slate-200 fade-in">
-                    <div class="flex items-center mb-4">
-                         <div class="bg-indigo-100 p-3 rounded-full">
-                            <i data-lucide="trending-up" class="h-7 w-7 text-indigo-600"></i>
-                        </div>
-                        <h3 class="ml-4 text-xl font-bold text-slate-800">5. Potensi Pendapatan Asli Daerah (PAD)</h3>
-                    </div>
-                    <p class="text-slate-700 leading-relaxed">
-                        Model pengelolaan terpusat ini tidak hanya merapikan kota tetapi juga menjadi sumber PAD baru yang signifikan bagi Kota Yogyakarta melalui:
-                    </p>
-                    <ul class="mt-3 space-y-2 text-slate-600 list-disc list-inside">
-                        <li>Biaya sewa slot *ducting*.</li>
-                        <li>Biaya sewa tiang bersama.</li>
-                        <li>Retribusi izin terkait infrastruktur telekomunikasi.</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Bagian 3: Langkah untuk Pekanbaru --><section id="langkah-pekanbaru" class="mb-16 section-padding">
-            <h2 class="text-3xl font-bold text-center text-slate-900 mb-10 fade-in">
-                Usulan 4 Langkah Konkret untuk Pekanbaru
-            </h2>
-            <p class="text-center text-lg text-slate-700 mb-10 fade-in">
-                Mengadaptasi keberhasilan Yogyakarta, berikut adalah langkah-langkah strategis yang dapat kita usulkan untuk penataan infrastruktur telekomunikasi di Pekanbaru:
-            </p>
-            <div class="relative pl-8 border-l-4 border-blue-600 ml-6 md:ml-12">
-                <!-- Step 1 --><div class="mb-10 relative fade-in">
-                    <div class="step-circle bg-blue-600 border-4 border-slate-50 flex items-center justify-center rounded-full shadow-md">
-                        <span class="text-white font-bold text-sm">1</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 leading-snug">Inisiasi Regulasi Kuat: Bentuk Peraturan Walikota (Perwako)</h3>
-                    <p class="mt-2 text-lg text-slate-700 leading-relaxed">
-                        Langkah fundamental adalah **menyusun Rancangan Peraturan Walikota Pekanbaru** yang secara spesifik mengatur penataan dan pengendalian infrastruktur pasif telekomunikasi. Perwako ini akan menjadi fondasi hukum kita.
+        <!-- Slide 3: Detail Proyek -->
+        <section id="proyek" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="max-w-3xl space-y-4">
+                    <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                        <i data-lucide="server" class="h-4 w-4 text-sky-300"></i>
+                        Solusi yang Diterapkan
+                    </span>
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100">
+                        Implementasi Ducting Bawah Tanah Terintegrasi
+                    </h2>
+                    <p class="text-lg text-slate-300 leading-relaxed">
+                        Pemerintah Kota Yogyakarta bersama PT PLN dan penyedia telekomunikasi memilih metode *ducting*, yaitu menanam seluruh jaringan kabel ke dalam saluran bawah tanah yang terstruktur.
                     </p>
                 </div>
-                <!-- Step 2 --><div class="mb-10 relative fade-in">
-                    <div class="step-circle bg-blue-600 border-4 border-slate-50 flex items-center justify-center rounded-full shadow-md">
-                         <span class="text-white font-bold text-sm">2</span>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="git-merge" class="h-8 w-8 text-sky-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-100">Kolaborasi Multi-Pihak</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Proyek ini merupakan hasil kerja sama antara Pemkot Yogyakarta, PT PLN, dan berbagai operator telekomunikasi. Ini memastikan semua kabel (listrik dan fiber optik) ditata sekaligus.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 leading-snug">Studi Kelayakan: Tentukan Model Pengelola Infrastruktur Bersama</h3>
-                    <p class="mt-2 text-lg text-slate-700 leading-relaxed">
-                        Melakukan kajian mendalam untuk menentukan model pengelolaan infrastruktur pasif bersama yang paling efektif untuk Pekanbaru, apakah akan dikelola oleh **Unit Pelaksana Teknis Dinas (UPTD)** di bawah Diskominfo atau melalui **pembentukan Badan Usaha Milik Daerah (BUMD)** khusus.
-                    </p>
-                </div>
-                <!-- Step 3 --><div class="mb-10 relative fade-in">
-                    <div class="step-circle bg-blue-600 border-4 border-slate-50 flex items-center justify-center rounded-full shadow-md">
-                         <span class="text-white font-bold text-sm">3</span>
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="arrow-down-to-line" class="h-8 w-8 text-sky-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-100">Sistem Ducting</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Pembangunan saluran beton bawah tanah yang dapat menampung semua kabel secara teratur. Ini mencegah galian berulang setiap kali ada instalasi baru.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 leading-snug">Proyek Percontohan: Mulai dari Ruas Jalan Utama</h3>
-                    <p class="mt-2 text-lg text-slate-700 leading-relaxed">
-                        Menetapkan **satu ruas jalan protokol** di Pekanbaru (misalnya Jalan Jenderal Sudirman atau Jalan HR. Soebrantas) sebagai lokasi **proyek percontohan (pilot project)**. Ini akan membuktikan konsep dan memberikan pembelajaran berharga sebelum diterapkan lebih luas.
-                    </p>
-                </div>
-                <!-- Step 4 --><div class="relative fade-in">
-                     <div class="step-circle bg-blue-600 border-4 border-slate-50 flex items-center justify-center rounded-full shadow-md">
-                         <span class="text-white font-bold text-sm">4</span>
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="network" class="h-8 w-8 text-sky-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-100">Jalur Kabel Bersama di Koridor</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Di area pertokoan, dibuat satu jalur kabel bersama berupa rak (tray) tertutup yang terpasang rapi di langit-langit koridor. Ini menjaga estetika interior sekaligus memudahkan perawatan.
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 leading-snug">Kolaborasi Aktif: Libatkan Seluruh Penyelenggara Telekomunikasi</h3>
-                    <p class="mt-2 text-lg text-slate-700 leading-relaxed">
-                        Mengadakan forum komunikasi dan diskusi terbuka dengan **seluruh penyelenggara telekomunikasi** yang beroperasi di Pekanbaru. Sosialisasi rencana, mendengarkan masukan, dan menjalin kerja sama adalah kunci keberhasilan implementasi.
-                    </p>
                 </div>
             </div>
         </section>
-        
-        <!-- Footer --><footer class="text-center mt-16 pt-8 border-t border-slate-200 fade-in">
-            <p class="text-slate-700 font-semibold text-lg">Mari Bersama Wujudkan Pekanbaru Smart City yang Tertata Rapi dan Modern.</p>
-            <p class="text-sm text-slate-500 mt-3">
-                Disajikan oleh Ahmad Mazlan | Diskominfo Pekanbaru | Oktober 2025
-            </p>
-        </footer>
+
+        <!-- Slide 4: Lokasi Kunci -->
+        <section id="lokasi" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="max-w-3xl space-y-4">
+                    <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                        <i data-lucide="map-pin" class="h-4 w-4 text-sky-300"></i>
+                        Area Implementasi
+                    </span>
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100">
+                        Fokus pada Kawasan Strategis dan Ruas Jalan Utama
+                    </h2>
+                    <p class="text-lg text-slate-300 leading-relaxed">
+                        Penataan tidak dilakukan serentak, melainkan diprioritaskan pada area yang memiliki nilai historis, pariwisata tinggi, dan kepadatan lalu lintas.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-6">
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <h3 class="text-xl font-semibold text-slate-100 mb-3">Kawasan Ikonik</h3>
+                        <ul class="space-y-2 text-sm text-slate-300">
+                            <li class="flex items-center gap-3"><i data-lucide="landmark" class="h-4 w-4 text-sky-300"></i>Kawasan Tugu Jogja</li>
+                            <li class="flex items-center gap-3"><i data-lucide="shopping-cart" class="h-4 w-4 text-sky-300"></i>Sepanjang Jalan Malioboro</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Pembelajaran -->
+        <section id="pembelajaran" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="max-w-3xl space-y-4">
+                    <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                        <i data-lucide="lightbulb" class="h-4 w-4 text-sky-300"></i>
+                        Pembelajaran Utama
+                    </span>
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100">
+                        Tiga Pilar Keberhasilan yang Bisa Direplikasi
+                    </h2>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="scale" class="h-8 w-8 text-sky-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-100">Regulasi yang Tegas</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Adanya peraturan daerah yang jelas dan sanksi bagi pelanggaran menjadi dasar hukum yang kuat untuk menertibkan semua pihak.
+                        </p>
+                    </div>
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="handshake" class="h-8 w-8 text-sky-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-100">Kolaborasi Terkoordinasi</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Keberhasilan proyek sangat bergantung pada komunikasi dan komitmen bersama antara pemerintah, BUMN (PLN), dan perusahaan swasta (operator telekomunikasi).
+                        </p>
+                    </div>
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="calendar-check" class="h-8 w-8 text-sky-300 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-slate-100">Perencanaan Jangka Panjang</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Proyek ini bukan proyek instan, melainkan bagian dari masterplan kota yang dieksekusi secara bertahap dengan prioritas yang jelas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Penutup -->
+        <section id="penutup" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                        <i data-lucide="flag" class="h-4 w-4 text-sky-300"></i>
+                        Kesimpulan
+                    </span>
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100 mt-5">
+                        Investasi untuk Wajah Kota Masa Depan
+                    </h2>
+                    <p class="text-lg text-slate-300 leading-relaxed mt-4">
+                        Proyek penataan kabel di Yogyakarta adalah contoh nyata bagaimana investasi pada infrastruktur dasar dapat memberikan dampak ganda: meningkatkan kualitas hidup warga, mempercantik wajah kota, dan membangun fondasi yang kokoh untuk ekonomi digital.
+                    </p>
+                    <a href="index.html" class="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 text-slate-900 font-semibold shadow-lg hover:scale-[1.03] transition-transform">
+                        <i data-lucide="home" class="h-5 w-5"></i>
+                        Kembali ke Halaman Utama
+                    </a>
+                </div>
+            </div>
+            <footer class="py-12 text-center text-slate-500 text-sm">
+                Laporan Studi Kasus | Oktober 2025 | Disusun berdasarkan data publik.
+            </footer>
+        </section>
 
     </main>
 
     <script>
         lucide.createIcons();
 
-        // Smooth Scroll for Navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        const sections = Array.from(document.querySelectorAll('section'));
+        const totalSlides = sections.length;
+        const progressBar = document.getElementById('progressBar');
+        const progressLabel = document.getElementById('progressLabel');
+        const mobileProgressLabel = document.getElementById('mobileProgressLabel');
+        const navLinks = document.querySelectorAll('.nav-pill');
 
-        // Scroll Spy for Navigation
-        const sections = document.querySelectorAll('section[id]');
-        const navItems = document.querySelectorAll('.nav-item');
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -50% 0px', // Highlight when section is halfway in viewport
-            threshold: 0
-        };
-
-        const sectionObserver = new IntersectionObserver((entries) => {
+        const intersectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    navItems.forEach(item => {
-                        item.classList.remove('active');
+                    const index = sections.indexOf(entry.target);
+                    const percentage = ((index + 1) / totalSlides) * 100;
+                    if (progressBar) progressBar.style.width = `${percentage}%`;
+                    if (progressLabel) progressLabel.textContent = `Hal ${index + 1} / ${totalSlides}`;
+                    if (mobileProgressLabel) mobileProgressLabel.textContent = `Hal ${index + 1} / ${totalSlides}`;
+
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.dataset.nav === entry.target.id);
                     });
-                    const activeNavItem = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
-                    if (activeNavItem) {
-                        activeNavItem.classList.add('active');
-                    }
                 }
             });
-        }, observerOptions);
+        }, { root: null, threshold: 0.5 });
 
-        sections.forEach(section => {
-            sectionObserver.observe(section);
-        });
-
-        // Fade-in Animation on Scroll
-        const fadeInElements = document.querySelectorAll('.fade-in');
-
-        const fadeInObserverOptions = {
-            root: null,
-            rootMargin: '0px 0px -10% 0px', // Trigger when 10% of element is visible
-            threshold: 0
-        };
-
-        const fadeInObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('appear');
-                    observer.unobserve(entry.target); // Stop observing once it has appeared
-                }
-            });
-        }, fadeInObserverOptions);
-
-        fadeInElements.forEach(element => {
-            fadeInObserver.observe(element);
-        });
-
-        // Initialize first section as active on load if it's in view
-        window.addEventListener('load', () => {
-            const firstSection = document.getElementById('masalah');
-            if (firstSection && firstSection.getBoundingClientRect().top < window.innerHeight / 2) {
-                const firstNavItem = document.querySelector('.nav-item[href="#masalah"]');
-                if (firstNavItem) {
-                    firstNavItem.classList.add('active');
-                }
-            }
-        });
-
+        sections.forEach(section => intersectionObserver.observe(section));
     </script>
-
 </body>
-</html>
 
+</html>
