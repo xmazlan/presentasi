@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumpulan Presentasi - Ahmad Mazlan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <main class="max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
+
+        <!-- Header -->
+        <header class="text-center pb-8 mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-slate-900">
+                Pusat Presentasi
+            </h1>
+            <p class="mt-3 text-lg text-slate-600">
+                Kumpulan materi dan laporan presentasi oleh Ahmad Mazlan.
+            </p>
+        </header>
+
+        <!-- Daftar Presentasi -->
+        <section id="daftar-presentasi">
+            <h2 class="text-xl font-semibold text-slate-800 mb-6 border-b pb-3">Daftar Materi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Kartu Presentasi 1 -->
+                <a href="proposal-penataan-kabel.html" class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-200">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-2 rounded-full">
+                            <i data-lucide="presentation" class="h-6 w-6 text-blue-600"></i>
+                        </div>
+                        <h3 class="ml-4 text-xl font-semibold text-slate-800">Penataan Kabel FO</h3>
+                    </div>
+                    <p class="text-slate-600 mb-4">
+                        Studi tiru penataan infrastruktur telekomunikasi berdasarkan keberhasilan Kota Yogyakarta.
+                    </p>
+                    <div class="mt-auto text-sm text-blue-600 font-semibold flex items-center">
+                        <span>Lihat Presentasi</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                    </div>
+                </a>
+
+                <!-- Placeholder untuk Presentasi Berikutnya -->
+                <div class="block bg-white p-6 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center">
+                    <div class="text-center text-slate-500">
+                        <i data-lucide="plus-circle" class="h-8 w-8 mx-auto mb-2"></i>
+                        <h3 class="text-xl font-semibold">Presentasi Berikutnya</h3>
+                        <p>Slot tersedia untuk laporan atau materi baru.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-12 pt-8 border-t border-slate-200">
+            <p class="text-sm text-slate-500 mt-2">
+                Ahmad Mazlan | Diskominfo Pekanbaru | © 2025
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+
+</body>
+</html>
+
