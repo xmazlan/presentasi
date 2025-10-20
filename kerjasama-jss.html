@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Progres Kerjasama JSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.25), transparent 45%),
+                        radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.3), transparent 55%),
+                        linear-gradient(180deg, #020617 0%, #0f172a 45%, #020617 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            margin: 0;
+        }
+        section {
+            scroll-snap-align: start;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
+        }
+        .nav-pill {
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .nav-pill:hover {
+            transform: translateX(6px);
+        }
+        .nav-pill.active {
+            background: rgba(59, 130, 246, 0.18);
+            border-color: rgba(96, 165, 250, 0.35);
+            color: #bfdbfe;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #38bdf8, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .badge {
+            border: 1px solid rgba(148, 163, 184, 0.45);
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Side navigation -->
+    <nav class="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col gap-3 z-40">
+        <a href="index.html" class="glass-panel border border-slate-700 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:border-sky-400 transition-colors flex items-center gap-2">
+            <i data-lucide="arrow-left" class="h-4 w-4"></i>
+            <span class="text-sm font-medium">Kembali</span>
+        </a>
+        <div class="flex flex-col gap-3 mt-4">
+            <a href="#pembuka" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="pembuka">
+                <i data-lucide="sparkles" class="h-4 w-4"></i>
+                Pembuka
+            </a>
+            <a href="#kronologi" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="kronologi">
+                <i data-lucide="list-ordered" class="h-4 w-4"></i>
+                Kronologi
+            </a>
+            <a href="#hasil" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="hasil">
+                <i data-lucide="badge-check" class="h-4 w-4"></i>
+                Hasil
+            </a>
+            <a href="#penutup" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="penutup">
+                <i data-lucide="flag" class="h-4 w-4"></i>
+                Penutup
+            </a>
+        </div>
+    </nav>
+
+    <main class="relative max-w-6xl mx-auto px-5 sm:px-10">
+
+        <!-- Slide 1: Pembuka -->
+        <section id="pembuka" class="min-h-screen py-20 flex flex-col justify-center gap-16">
+            <div class="glass-panel border border-slate-800 rounded-3xl shadow-2xl px-8 sm:px-12 py-10 sm:py-16">
+                <div class="flex flex-col lg:flex-row gap-12 items-center">
+                    <div class="flex-1 space-y-6">
+                        <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                            <i data-lucide="handshake" class="h-4 w-4 text-sky-300"></i>
+                            Kerjasama Antar Daerah
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                            Laporan Progres <span class="gradient-text">Replikasi Modul JSS</span>
+                        </h1>
+                        <p class="text-lg text-slate-300 leading-relaxed">
+                            Update terkait tindak lanjut kerjasama replikasi modul dari Jogja Smart Service (JSS), yang diinisiasi oleh Bagian Kerjasama Sekda dan dieksekusi secara teknis oleh Diskominfo.
+                        </p>
+                    </div>
+                    <div class="flex-1 space-y-6">
+                        <div class="glass-panel border border-slate-800 rounded-3xl px-6 py-6">
+                            <h2 class="text-xl font-semibold text-sky-200 flex items-center gap-2">
+                                <i data-lucide="check-circle-2" class="h-5 w-5"></i>
+                                Status Saat Ini: Positif
+                            </h2>
+                            <p class="mt-3 text-3xl font-bold text-emerald-300">Aset Digital Siap Dikirim</p>
+                            <p class="mt-2 text-slate-300">Diskominfo Kota Yogyakarta akan segera mengirimkan source code dan database setelah koordinasi proaktif dari tim Diskominfo Pekanbaru.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col items-center text-slate-500 text-sm gap-2">
+                <i data-lucide="chevrons-down" class="h-5 w-5 animate-bounce"></i>
+                Gulir untuk melanjutkan
+            </div>
+        </section>
+
+        <!-- Slide 2: Kronologi -->
+        <section id="kronologi" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="max-w-3xl space-y-4">
+                    <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                        <i data-lucide="list-ordered" class="h-4 w-4 text-sky-300"></i>
+                        Alur Koordinasi
+                    </span>
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100">
+                        Mendorong Percepatan Proses
+                    </h2>
+                    <p class="text-lg text-slate-300 leading-relaxed">
+                        Narasi ini penting untuk menunjukkan bahwa Diskominfo Pekanbaru berperan aktif dalam memastikan kelancaran kerjasama.
+                    </p>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="h-10 w-10 rounded-full bg-sky-500/30 flex items-center justify-center border border-sky-500 text-sky-300 font-bold">1</div>
+                            <div class="w-px h-full bg-slate-700"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-100">Mandat Diterima</h3>
+                            <p class="text-slate-400 mt-1">Diskominfo Pekanbaru ditugaskan mengeksekusi aspek teknis dari kerjasama replikasi modul JSS.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="h-10 w-10 rounded-full bg-sky-500/30 flex items-center justify-center border border-sky-500 text-sky-300 font-bold">2</div>
+                            <div class="w-px h-full bg-slate-700"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-100">Koordinasi Proaktif</h3>
+                            <p class="text-slate-400 mt-1">Tim kami berinisiatif menghubungi Diskominfo Yogyakarta untuk menanyakan progres teknis penyerahan aset digital.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="h-10 w-10 rounded-full bg-sky-500/30 flex items-center justify-center border border-sky-500 text-sky-300 font-bold">3</div>
+                            <div class="w-px h-full bg-slate-700"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-100">Mengatasi Hambatan</h3>
+                            <p class="text-slate-400 mt-1">Teridentifikasi bahwa Diskominfo Yogyakarta menunggu arahan dari bagian internal mereka. Komunikasi dari tim kami menjadi pemicu untuk mereka bergerak.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="h-10 w-10 rounded-full bg-emerald-500/30 flex items-center justify-center border border-emerald-500 text-emerald-300 font-bold">
+                                <i data-lucide="check"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-slate-100">Hasil Tercapai</h3>
+                            <p class="text-slate-400 mt-1">Diskominfo Yogyakarta meminta email resmi dan berkomitmen mengirimkan source code & database.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Hasil -->
+        <section id="hasil" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12 text-center">
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                        <i data-lucide="package-check" class="h-4 w-4 text-sky-300"></i>
+                        Output Kerjasama
+                    </span>
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100">
+                        Aset Digital yang Akan Diterima
+                    </h2>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="code-2" class="h-10 w-10 text-sky-300 mb-4 mx-auto"></i>
+                        <h3 class="text-2xl font-semibold text-slate-100">Source Code Aplikasi</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Kode sumber lengkap dari modul kerjasama yang akan direplikasi. Memungkinkan kustomisasi sesuai kebutuhan Pekanbaru.
+                        </p>
+                    </div>
+                    <div class="glass-panel border border-slate-800 rounded-2xl p-6">
+                        <i data-lucide="database" class="h-10 w-10 text-sky-300 mb-4 mx-auto"></i>
+                        <h3 class="text-2xl font-semibold text-slate-100">Struktur Database</h3>
+                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                            Skema dan struktur basis data yang digunakan oleh aplikasi, penting untuk proses instalasi dan migrasi data awal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Penutup -->
+        <section id="penutup" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="text-center max-w-3xl mx-auto">
+                    <span class="badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-slate-300">
+                        <i data-lucide="flag" class="h-4 w-4 text-sky-300"></i>
+                        Kesimpulan & Langkah Selanjutnya
+                    </span>
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100 mt-5">
+                        Kerjasama Berjalan Sesuai Rencana
+                    </h2>
+                    <p class="text-lg text-slate-300 leading-relaxed mt-4">
+                        Proaktivitas dalam komunikasi memastikan tidak ada hambatan dalam proses serah terima teknis. Diskominfo Pekanbaru telah menunjukkan perannya sebagai eksekutor teknis yang andal.
+                    </p>
+                    <div class="mt-8 grid sm:grid-cols-2 gap-4 text-left">
+                         <div class="glass-panel border border-slate-700 rounded-xl p-5">
+                            <h3 class="font-semibold text-slate-100 flex items-center gap-2"><i data-lucide="arrow-down-circle" class="h-5 w-5 text-sky-300"></i> Menunggu Penerimaan</h3>
+                            <p class="text-sm text-slate-400 mt-2">Memantau email dan berkoordinasi untuk memastikan aset digital diterima dengan baik.</p>
+                         </div>
+                         <div class="glass-panel border border-slate-700 rounded-xl p-5">
+                            <h3 class="font-semibold text-slate-100 flex items-center gap-2"><i data-lucide="settings-2" class="h-5 w-5 text-sky-300"></i> Perencanaan Instalasi</h3>
+                            <p class="text-sm text-slate-400 mt-2">Setelah diterima, tim teknis akan segera menjadwalkan proses instalasi dan analisis untuk kustomisasi.</p>
+                         </div>
+                    </div>
+                    <a href="index.html" class="mt-10 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 text-slate-900 font-semibold shadow-lg hover:scale-[1.03] transition-transform">
+                        <i data-lucide="home" class="h-5 w-5"></i>
+                        Kembali ke Halaman Utama
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const sections = Array.from(document.querySelectorAll('section'));
+        const navLinks = document.querySelectorAll('.nav-pill');
+
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.dataset.nav === entry.target.id);
+                    });
+                }
+            });
+        }, { root: null, threshold: 0.5 });
+
+        sections.forEach(section => intersectionObserver.observe(section));
+    </script>
+</body>
+</html>
