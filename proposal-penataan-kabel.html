@@ -83,6 +83,37 @@
             box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.25);
         }
 
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .comparison-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .comparison-overlay {
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .comparison-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: ew-resize;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
         @media (max-width: 1024px) {
             html {
                 scroll-snap-type: y mandatory;
@@ -120,6 +151,10 @@
                 <i data-lucide="alert-triangle" class="h-4 w-4"></i>
                 Latar Belakang
             </a>
+            <a href="#before-after" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="before-after">
+                <i data-lucide="image" class="h-4 w-4"></i>
+                Visualisasi
+            </a>
             <a href="#proyek" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="proyek">
                 <i data-lucide="server" class="h-4 w-4"></i>
                 Detail Proyek
@@ -135,6 +170,20 @@
             <a href="#penutup" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="penutup">
                 <i data-lucide="flag" class="h-4 w-4"></i>
                 Penutup
+            </a>
+        </div>
+        <div class="flex flex-col gap-3 mt-4">
+            <a href="index.html" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all">
+                <i data-lucide="home" class="h-4 w-4"></i>
+                Home
+            </a>
+            <a href="proses-pembangunan-aplikasi-pemkot.html" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all">
+                <i data-lucide="file-text" class="h-4 w-4"></i>
+                Proses Pembangunan Aplikasi
+            </a>
+            <a href="kerjasama-jss.html" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all">
+                <i data-lucide="file-text" class="h-4 w-4"></i>
+                Kerjasama JSS
             </a>
         </div>
     </nav>
@@ -243,6 +292,29 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2.5: Before and After -->
+        <section id="before-after" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12 space-y-12">
+                <div class="max-w-3xl mx-auto text-center space-y-4">
+                    <h2 class="text-4xl font-bold leading-tight text-slate-100">
+                        Visualisasi Dampak Penataan
+                    </h2>
+                    <p class="text-lg text-slate-300 leading-relaxed">
+                        Geser slider untuk membandingkan kondisi sebelum dan sesudah penataan kabel.
+                    </p>
+                </div>
+                <div class="comparison-slider aspect-video max-w-4xl mx-auto rounded-2xl overflow-hidden relative select-none">
+                    <div class="comparison-item">
+                        <img src="https://via.placeholder.com/1280x720/0f172a/94a3b8.png?text=SESUDAH" class="w-full h-full object-cover" alt="Sesudah Penataan">
+                    </div>
+                    <div class="comparison-item comparison-overlay">
+                        <img src="https://via.placeholder.com/1280x720/94a3b8/0f172a.png?text=SEBELUM" class="w-full h-full object-cover" alt="Sebelum Penataan">
+                    </div>
+                    <div class="comparison-handle"></div>
                 </div>
             </div>
         </section>
@@ -410,6 +482,33 @@
         }, { root: null, threshold: 0.5 });
 
         sections.forEach(section => intersectionObserver.observe(section));
+
+        const slider = document.querySelector('.comparison-slider');
+        const overlay = slider.querySelector('.comparison-overlay');
+        const handle = slider.querySelector('.comparison-handle');
+
+        let isDragging = false;
+
+        handle.addEventListener('mousedown', () => {
+            isDragging = true;
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const sliderRect = slider.getBoundingClientRect();
+            let newX = e.clientX - sliderRect.left;
+
+            if (newX < 0) newX = 0;
+            if (newX > sliderRect.width) newX = sliderRect.width;
+
+            overlay.style.width = `${newX}px`;
+            handle.style.left = `${newX}px`;
+        });
     </script>
 </body>
 

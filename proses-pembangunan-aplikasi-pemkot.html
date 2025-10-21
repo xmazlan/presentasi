@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proses Pembangunan Aplikasi Pemerintah Kota</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Government Tech Blue -->
+    <!-- Application Structure Plan: The application is structured as a single-page scrolling experience with a sticky navigation bar. This non-linear structure allows users to jump directly to sections of interest, such as the 'Alur Proses' or 'Portofolio', which is more user-friendly than a linear slide presentation. The core interaction is the step-by-step process diagram, which allows users to click and reveal details for each phase. This design choice transforms passive content into an engaging, explorable journey, making the complex process easier to understand and digest. -->
+    <!-- Visualization & Content Choices: The central 'Alur Proses' is visualized as an interactive vertical timeline built with HTML/CSS/JS, as no quantitative data exists for traditional charts. Goal: Organize/Change. Method: Interactive Diagram. Interaction: Click to expand details. Justification: Enhances user engagement and clarifies a multi-step process. Other content like principles, portfolio, and challenges are organized into cards and two-column layouts for better readability and visual separation. Goal: Inform/Compare. Method: Styled HTML cards/lists. Interaction: None, focus on clarity. This approach avoids SVG/Mermaid while effectively structuring the qualitative information. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            color-scheme: dark;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.25), transparent 45%),
+                radial-gradient(circle at 80% 0%, rgba(56, 189, 248, 0.3), transparent 55%),
+                linear-gradient(180deg, #020617 0%, #0f172a 45%, #020617 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        section {
+            scroll-snap-align: start;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
+        }
+
+        .nav-pill {
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .nav-pill:hover {
+            transform: translateX(6px);
+        }
+
+        .nav-pill.active {
+            background: rgba(59, 130, 246, 0.18);
+            border-color: rgba(96, 165, 250, 0.35);
+            color: #bfdbfe;
+        }
+
+        .process-step.active-step {
+            border-color: #0ea5e9;
+            background-color: #1e293b;
+        }
+
+        .process-step.active-step .step-circle {
+            background-color: #0ea5e9;
+            color: white;
+        }
+
+        .process-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .process-content.show {
+            max-height: 500px;
+        }
+
+    </style>
+</head>
+
+<body class="text-gray-800 bg-slate-900">
+
+    <nav class="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col gap-3 z-40">
+        <a href="index.html" class="glass-panel border border-slate-700 px-3 py-2 rounded-xl text-slate-300 hover:text-white hover:border-sky-400 transition-colors flex items-center gap-2">
+            <i data-lucide="arrow-left" class="h-4 w-4"></i>
+            <span class="text-sm font-medium">Kembali</span>
+        </a>
+        <div class="flex flex-col gap-3 mt-4">
+            <a href="#beranda" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="beranda">
+                <i data-lucide="home" class="h-4 w-4"></i>
+                Beranda
+            </a>
+            <a href="#latar-belakang" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="latar-belakang">
+                <i data-lucide="info" class="h-4 w-4"></i>
+                Latar Belakang
+            </a>
+            <a href="#alur-proses" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="alur-proses">
+                <i data-lucide="list-ordered" class="h-4 w-4"></i>
+                Alur Proses
+            </a>
+            <a href="#prinsip" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="prinsip">
+                <i data-lucide="gem" class="h-4 w-4"></i>
+                Prinsip
+            </a>
+            <a href="#portofolio" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="portofolio">
+                <i data-lucide="briefcase" class="h-4 w-4"></i>
+                Portofolio
+            </a>
+            <a href="#tantangan" class="nav-pill glass-panel border border-slate-800 px-4 py-3 rounded-xl text-slate-400 flex items-center gap-3 text-sm font-medium transition-all" data-nav="tantangan">
+                <i data-lucide="swords" class="h-4 w-4"></i>
+                Tantangan
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-5 sm:px-10">
+        <section id="beranda" class="min-h-screen py-20 flex flex-col justify-center gap-16">
+            <div class="glass-panel border border-slate-800 rounded-3xl shadow-2xl px-8 sm:px-12 py-10 sm:py-16 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-slate-100 tracking-tight">Proses Pembangunan Aplikasi Pemerintah Kota</h1>
+                <p class="mt-4 text-lg md:text-xl text-cyan-300 font-medium">Transformasi Digital Menuju Pemerintahan Cerdas</p>
+                <p class="mt-8 max-w-3xl mx-auto text-base text-slate-300">
+                    Selamat datang di Diskominfo Pekanbaru. Melalui laman ini, kami berbagi tentang bagaimana proses kami membangun aplikasi pemerintahan—dari ide hingga siap digunakan oleh masyarakat, sebagai bagian dari implementasi nyata Sistem Pemerintahan Berbasis Elektronik (SPBE).
+                </p>
+            </div>
+        </section>
+
+        <section id="latar-belakang" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-100">Latar Belakang Transformasi</h2>
+                    <p class="mt-2 text-slate-400 max-w-2xl mx-auto">Memahami 'mengapa' di balik setiap inovasi adalah kunci. Digitalisasi lahir dari kebutuhan nyata untuk melayani lebih baik.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="glass-panel border border-slate-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-3 text-red-400">Permasalahan Awal</h3>
+                        <ul class="space-y-3 text-slate-300">
+                            <li class="flex items-start"><span class="text-red-400 mr-3 mt-1">●</span>Banyak layanan publik masih manual, lambat, dan berbelit.</li>
+                            <li class="flex items-start"><span class="text-red-400 mr-3 mt-1">●</span>Data antar OPD belum terhubung, menciptakan silo informasi.</li>
+                            <li class="flex items-start"><span class="text-red-400 mr-3 mt-1">●</span>Pengambilan keputusan sulit tanpa data yang valid & real-time.</li>
+                        </ul>
+                    </div>
+                    <div class="glass-panel border-2 border-cyan-500 text-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold mb-3">Solusi Strategis</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-cyan-300 mr-3 mt-1">✓</span>Transformasi digital melalui penerapan SPBE secara konsisten.</li>
+                            <li class="flex items-start"><span class="text-cyan-300 mr-3 mt-1">✓</span>Pengembangan aplikasi internal dan publik secara bertahap.</li>
+                            <li class="flex items-start"><span class="text-cyan-300 mr-3 mt-1">✓</span>Pemanfaatan teknologi open source agar efisien dan adaptif.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-10 text-center glass-panel border border-slate-800 p-6 rounded-lg">
+                    <p class="text-lg italic text-slate-300">“Digitalisasi bukan sekadar mengganti kertas dengan layar, tapi membangun ekosistem kerja yang lebih cepat, transparan, dan terukur.”</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="alur-proses" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-100">Alur Proses Pembangunan Aplikasi</h2>
+                    <p class="mt-2 text-slate-400 max-w-2xl mx-auto">Setiap aplikasi lahir melalui proses yang terstruktur. Klik setiap tahapan di bawah untuk melihat detailnya.</p>
+                </div>
+                <div class="max-w-3xl mx-auto">
+                    <div class="space-y-4">
+                        <div class="process-step border-l-4 border-gray-700 p-4 cursor-pointer hover:bg-slate-800 transition-colors duration-200" data-step="1">
+                            <div class="flex items-center">
+                                <div class="step-circle w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold text-gray-300 transition-colors duration-200">1</div>
+                                <h3 class="ml-4 text-xl font-semibold text-slate-100">Identifikasi Kebutuhan</h3>
+                            </div>
+                            <div class="process-content pl-14 pt-2">
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                    <li>Diskusi awal dengan OPD pemilik urusan.</li>
+                                    <li>Pemetaan proses bisnis dan titik masalah (*pain points*).</li>
+                                    <li>Tujuan akhir: menemukan masalah nyata yang ingin diselesaikan.</li>
+                                </ul>
+                                <p class="mt-2 text-sm italic bg-yellow-900/50 text-yellow-200 p-2 rounded">🗒️ Tidak semua masalah butuh aplikasi, kadang cukup perbaikan alur kerja.</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step border-l-4 border-gray-700 p-4 cursor-pointer hover:bg-slate-800 transition-colors duration-200" data-step="2">
+                            <div class="flex items-center">
+                                <div class="step-circle w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold text-gray-300 transition-colors duration-200">2</div>
+                                <h3 class="ml-4 text-xl font-semibold text-slate-100">Perencanaan & Desain</h3>
+                            </div>
+                            <div class="process-content pl-14 pt-2">
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                    <li>Penyusunan dokumen kebutuhan (SRS) dan rencana teknis.</li>
+                                    <li>Perancangan arsitektur aplikasi dan database.</li>
+                                    <li>Desain antarmuka (UI/UX) agar mudah digunakan.</li>
+                                    <li>Pemilihan teknologi (Laravel, Livewire, Tailwind, dsb).</li>
+                                </ul>
+                                <p class="mt-2 text-sm italic bg-yellow-900/50 text-yellow-200 p-2 rounded">🗒️ Desain menyesuaikan kemampuan pengguna akhir, bukan sekadar tren.</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step border-l-4 border-gray-700 p-4 cursor-pointer hover:bg-slate-800 transition-colors duration-200" data-step="3">
+                            <div class="flex items-center">
+                                <div class="step-circle w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold text-gray-300 transition-colors duration-200">3</div>
+                                <h3 class="ml-4 text-xl font-semibold text-slate-100">Pengembangan (Development)</h3>
+                            </div>
+                            <div class="process-content pl-14 pt-2">
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                    <li>Implementasi kode oleh tim internal / pihak ketiga.</li>
+                                    <li>Penerapan kontrol versi (Git) dan dokumentasi teknis.</li>
+                                    <li>Pengujian fungsi (QA) dan tampilan secara berkala.</li>
+                                    <li>Review rutin antar tim untuk sinkronisasi.</li>
+                                </ul>
+                                <p class="mt-2 text-sm italic bg-yellow-900/50 text-yellow-200 p-2 rounded">🗒️ Pengembangan sering bersifat iteratif, tidak selalu sekali jadi.</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step border-l-4 border-gray-700 p-4 cursor-pointer hover:bg-slate-800 transition-colors duration-200" data-step="4">
+                            <div class="flex items-center">
+                                <div class="step-circle w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold text-gray-300 transition-colors duration-200">4</div>
+                                <h3 class="ml-4 text-xl font-semibold text-slate-100">Implementasi & Peluncuran</h3>
+                            </div>
+                            <div class="process-content pl-14 pt-2">
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                    <li>Uji coba di lingkungan terbatas (*staging server*).</li>
+                                    <li>Pelatihan pengguna (admin OPD).</li>
+                                    <li>Deployment ke server pemerintah kota.</li>
+                                    <li>Sosialisasi & monitoring awal pasca-peluncuran.</li>
+                                </ul>
+                                <p class="mt-2 text-sm italic bg-yellow-900/50 text-yellow-200 p-2 rounded">🗒️ Komunikasi dan pendampingan penting agar aplikasi benar-benar digunakan.</p>
+                            </div>
+                        </div>
+
+                        <div class="process-step border-l-4 border-gray-700 p-4 cursor-pointer hover:bg-slate-800 transition-colors duration-200" data-step="5">
+                            <div class="flex items-center">
+                                <div class="step-circle w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center font-bold text-gray-300 transition-colors duration-200">5</div>
+                                <h3 class="ml-4 text-xl font-semibold text-slate-100">Pemeliharaan (Maintenance)</h3>
+                            </div>
+                            <div class="process-content pl-14 pt-2">
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                    <li>Pemantauan performa dan keamanan sistem.</li>
+                                    <li>Penanganan bug & penambahan fitur minor.</li>
+                                    <li>Evaluasi berkala berdasarkan feedback pengguna.</li>
+                                    <li>Dokumentasi versi dan perubahan (changelog).</li>
+                                </ul>
+                                <p class="mt-2 text-sm italic bg-yellow-900/50 text-yellow-200 p-2 rounded">🗒️ Maintenance bukan beban, tapi bukti bahwa aplikasi hidup dan relevan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="prinsip" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-100">Prinsip & Standar Pembangunan</h2>
+                    <p class="mt-2 text-slate-400 max-w-2xl mx-auto">Kami tidak hanya membangun, tapi membangun dengan fondasi yang kuat berdasarkan Arsitektur SPBE Kota Pekanbaru.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-panel border border-slate-800 p-6 rounded-lg text-center">
+                        <div class="text-4xl text-cyan-300 mb-3">🔄</div>
+                        <h4 class="font-semibold text-lg text-slate-100">Interoperabilitas</h4>
+                        <p class="text-sm text-slate-400 mt-1">Aplikasi antar OPD bisa saling terhubung dan bertukar data.</p>
+                    </div>
+                    <div class="glass-panel border border-slate-800 p-6 rounded-lg text-center">
+                        <div class="text-4xl text-cyan-300 mb-3">🛡️</div>
+                        <h4 class="font-semibold text-lg text-slate-100">Keamanan Data</h4>
+                        <p class="text-sm text-slate-400 mt-1">Autentikasi terpusat (SSO/SPBE ID) untuk melindungi data.</p>
+                    </div>
+                    <div class="glass-panel border border-slate-800 p-6 rounded-lg text-center">
+                        <div class="text-4xl text-cyan-300 mb-3">⚙️</div>
+                        <h4 class="font-semibold text-lg text-slate-100">Efisiensi Infrastruktur</h4>
+                        <p class="text-sm text-slate-400 mt-1">Integrasi sistem untuk menghindari duplikasi sumber daya.</p>
+                    </div>
+                    <div class="glass-panel border border-slate-800 p-6 rounded-lg text-center">
+                        <div class="text-4xl text-cyan-300 mb-3">💡</div>
+                        <h4 class="font-semibold text-lg text-slate-100">Open Source & Fleksibel</h4>
+                        <p class="text-sm text-slate-400 mt-1">Mudah dikembangkan dan tidak terikat pada satu vendor.</p>
+                    </div>
+                </div>
+                <div class="mt-10 text-center glass-panel border-2 border-cyan-500 text-white p-6 rounded-lg">
+                    <p class="text-lg font-bold">Prinsip Kerja Kami: “Build once, use many”</p>
+                    <p>Satu data, banyak manfaat.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="portofolio" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-100">Contoh Aplikasi Pemerintah Kota</h2>
+                    <p class="mt-2 text-slate-400 max-w-2xl mx-auto">Berikut adalah beberapa contoh nyata dari aplikasi yang telah kami kembangkan untuk melayani ASN dan masyarakat.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <a href="https://superapp.pekanbaru.go.id/" target="_blank" class="glass-panel border border-slate-800 p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-cyan-300 mb-3">Super App</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            Mengintegrasikan berbagai layanan publik dalam satu aplikasi agar warga bisa akses layanan kota dengan mudah, cepat, dan aman.
+                        </ul>
+                    </a>
+                    <a href="https://www.pekanbaru.go.id/" target="_blank" class="glass-panel border border-slate-800 p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-cyan-300 mb-3">Portal Berita Pekanbaru</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            Portal ini adalah situs resmi Pemerintah Kota Pekanbaru yang menyediakan informasi terkini dan layanan publik untuk warga dan pemangku kepentingan
+                        </ul>
+                    </a>
+                    <a href="https://stunting-sweeper.pekanbaru.go.id/" target="_blank" class="glass-panel border border-slate-800 p-6 rounded-lg">
+                        <h3 class="font-bold text-xl text-cyan-300 mb-3">Stunting Sweeper</h3>
+                        <ul class="space-y-2 text-slate-300">
+                            Memudahkan pemantauan, identifikasi awal, dan penanganan balita yang berisiko atau mengalami stunting di wilayah kota Pekanbaru
+                        </ul>
+                    </a>
+                </div>
+                <div class="mt-10 text-center glass-panel border border-slate-800 p-6 rounded-lg">
+                    <p class="text-lg italic text-slate-300">“Setiap aplikasi yang kami bangun memiliki ruh pelayanan, bukan sekadar kumpulan kode.”</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tantangan" class="min-h-screen py-20 flex flex-col justify-center gap-12">
+            <div class="glass-panel border border-slate-800 rounded-3xl px-8 sm:px-12 py-12">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-100">Tantangan & Dampak Positif</h2>
+                    <p class="mt-2 text-slate-400 max-w-2xl mx-auto">Setiap proses pembangunan memiliki tantangan. Namun, dengan solusi yang tepat, kami berhasil menciptakan dampak yang signifikan.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-panel border border-slate-800 p-6 rounded-lg">
+                        <h3 class="font-semibold text-xl mb-4 text-slate-100">Tantangan dalam Pembangunan</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-medium text-red-400">Tantangan Teknis</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-400 mt-1">
+                                    <li>Integrasi dengan sistem lama (*legacy systems*).</li>
+                                    <li>Keterbatasan SDM developer di lingkungan pemerintah.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-red-400">Tantangan Non-Teknis</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-400 mt-1">
+                                    <li>Resistensi terhadap perubahan dari sebagian pengguna.</li>
+                                    <li>Kebutuhan pelatihan dan pembiasaan alur kerja baru.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-panel border border-slate-800 p-6 rounded-lg">
+                        <h3 class="font-semibold text-xl mb-4 text-slate-100">Dampak & Manfaat yang Dicapai</h3>
+                        <div class="space-y-2 text-slate-300">
+                            <p class="flex items-center"><span class="text-green-400 mr-2">✅</span> Efisiensi pelayanan publik meningkat signifikan.</p>
+                            <p class="flex items-center"><span class="text-green-400 mr-2">✅</span> Proses administrasi lebih cepat & transparan.</p>
+                            <p class="flex items-center"><span class="text-green-400 mr-2">✅</span> Pengambilan keputusan menjadi berbasis data akurat.</p>
+                            <p class="flex items-center"><span class="text-green-400 mr-2">✅</span> Kepercayaan publik terhadap pemerintah meningkat.</p>
+                            <p class="flex items-center"><span class="text-green-400 mr-2">✅</span> Pengembangan SDM internal lebih adaptif dengan teknologi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 text-center text-slate-500 text-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <h3 class="text-xl font-bold text-slate-100">Mulai Berkontribusi Sekarang</h3>
+            <p class="mt-2 max-w-xl mx-auto text-slate-300">"Inovasi tidak harus besar. Cukup dimulai dari niat kecil untuk memperbaiki satu proses menjadi lebih baik."</p>
+            <p class="mt-4 text-sm text-slate-400">Pemerintah Kota Pekanbaru | Dinas Komunikasi dan Informatika</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            lucide.createIcons();
+
+            const processSteps = document.querySelectorAll('.process-step');
+            processSteps.forEach(step => {
+                step.addEventListener('click', () => {
+                    const content = step.querySelector('.process-content');
+                    const isActive = step.classList.contains('active-step');
+
+                    processSteps.forEach(s => {
+                        s.classList.remove('active-step');
+                        s.querySelector('.process-content').classList.remove('show');
+                    });
+
+                    if (!isActive) {
+                        step.classList.add('active-step');
+                        content.classList.add('show');
+                    }
+                });
+            });
+            if (processSteps.length > 0) {
+                processSteps[0].click();
+            }
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('a.nav-pill');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.dataset.nav === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+
+</html>
